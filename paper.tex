@@ -1,0 +1,400 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{subcaption}
+
+\begin{document}
+
+\title{An Enterprise-Grade Real-Time AML Framework Using Graph Neural Networks and Explainable Multi-Agent Intelligence}
+
+\author{
+
+\IEEEauthorblockN{Ashrith Chitriki}
+\IEEEauthorblockA{
+Department of AIML\\
+R V College of Engineering\\
+Bangalore, India\\
+ashrithchitriki.ai22@rvce.edu.in\\
+[-0.9\baselineskip]\rule{2.3in}{0pt}}
+
+\and
+
+\IEEEauthorblockN{Sharankrishna Kondi}
+\IEEEauthorblockA{
+Department of AIML\\
+R V College of Engineering\\
+Bangalore, India\\
+sharankrishnak.ai22@rvce.edu.in\\
+[-0.9\baselineskip]\rule{2.3in}{0pt}}
+
+\and
+
+\IEEEauthorblockN{Tanishq Manju Reddy}
+\IEEEauthorblockA{
+Department of AIML\\
+R V College of Engineering\\
+Bangalore, India\\
+tanishqm.ai22@rvce.edu.in\\
+[-0.9\baselineskip]\rule{2.3in}{0pt}}
+
+\and
+
+\IEEEauthorblockN{Mrinal Cariappa GP}
+\IEEEauthorblockA{
+Department of AIML\\
+R V College of Engineering\\
+Bangalore, India\\
+mrinalcgp.ai22@rvce.edu.in\\
+[-0.9\baselineskip]\rule{2.3in}{0pt}}
+
+\and
+
+\IEEEauthorblockN{Vishwavardhan K}
+\IEEEauthorblockA{
+Department of AIML\\
+R V College of Engineering\\
+Bangalore, India\\
+vishwavardhank@rvce.edu.in\\
+[-0.9\baselineskip]\rule{2.3in}{0pt}}
+
+\and
+
+\IEEEauthorblockN{Harshitha V}
+\IEEEauthorblockA{
+Department of AIML\\
+R V College of Engineering\\
+Bangalore, India\\
+harshithav@rvce.edu.in\\
+[-0.9\baselineskip]\rule{2.3in}{0pt}}
+
+}
+
+\maketitle
+
+\begin{abstract}
+Financial crimes such as money laundering have grown more sophisticated with the expansion of digital banking and real-time financial transactions, rendering traditional rule-based Anti-Money Laundering (AML) systems inadequate for detecting complex fraud patterns. This paper presents a real-time AML Intelligence Platform that integrates Big Data streaming, Artificial Neural Networks (ANN), Graph Neural Networks (GNN), Explainable Artificial Intelligence (XAI), and Multi-Agent Intelligence for financial fraud detection and surveillance.
+
+Apache Kafka and Apache Spark Streaming handle real-time transaction ingestion and processing, while an ANN model classifies suspicious transactions. A dynamic graph engine continuously constructs transaction relationship networks, enabling a GNN model to detect suspicious accounts, fraud rings, and abnormal transaction communities. The framework incorporates Explainable AI techniques that provide reasoning for suspicious predictions, improving transparency and regulatory compliance.
+
+The system also includes automated risk scoring, fraud ring detection, investigation intelligence, and alert prioritization through specialized AI agents. An interactive web-based dashboard, built with a FastAPI REST backend and a custom HTML/CSS/JavaScript single-page application using Chart.js and vis-network, provides real-time visualization of transaction graphs, AML risk scores, suspicious account tracing, and investigation workflows. The proposed framework demonstrates scalability, real-time analytical capability, and enhanced fraud detection performance suitable for modern banking and financial crime monitoring systems.
+\end{abstract}
+
+\section{Introduction}
+
+The rapid advancement of digital banking, online payment systems, and financial technologies has significantly increased the volume and speed of financial transactions worldwide. While these advancements have improved accessibility and efficiency in the banking sector, they have also created new opportunities for financial crimes such as money laundering, fraud, identity theft, and illicit fund transfers. Financial institutions are therefore required to implement advanced Anti-Money Laundering (AML) systems capable of detecting suspicious activities in real time while complying with strict regulatory standards.
+
+Traditional AML systems primarily rely on static rule-based monitoring mechanisms and manually designed thresholds to flag suspicious transactions. Although widely used, these systems struggle to detect sophisticated laundering techniques, coordinated fraud rings, and hidden transaction relationships. They also generate a large number of false positives, increasing the workload of compliance teams and reducing investigation efficiency. As financial crime strategies continue to evolve, there is a growing demand for intelligent, adaptive, and scalable AML solutions.
+
+Artificial Intelligence (AI) and Machine Learning (ML) techniques have emerged as powerful approaches for enhancing financial fraud detection and transaction monitoring. ML models can automatically learn transaction patterns, identify anomalies, and detect suspicious behaviours that are difficult to capture using predefined rules. Among these techniques, Artificial Neural Networks (ANN) have shown promising performance in classifying suspicious financial transactions based on transactional characteristics and behavioural patterns.
+
+However, financial transactions are inherently interconnected; relationships between accounts, transaction flows, and network structures play a critical role in identifying fraudulent activities. Conventional ML models often fail to capture these complex relational dependencies effectively. To address this limitation, Graph Neural Networks (GNN) have gained significant attention in financial crime analytics due to their ability to model graph-structured data and learn hidden patterns within transaction networks. GNNs can analyse account connectivity, transaction communities, and graph embeddings to detect suspicious accounts and coordinated money laundering rings.
+
+In addition to accurate fraud detection, modern AML systems must provide transparency and interpretability in their decisions. Regulatory authorities and financial investigators require explanations for why a transaction or account has been flagged as suspicious. This has led to the integration of Explainable Artificial Intelligence (XAI) techniques in AML frameworks. XAI methods improve model transparency by providing understandable explanations based on transaction characteristics, graph metrics, and model predictions, thereby increasing trust and compliance in AI-driven systems.
+
+Another challenge in real-world AML environments is the need for continuous real-time monitoring and processing of massive transaction streams. Modern banking systems generate thousands of transactions per second, making traditional batch-processing approaches insufficient. Big Data technologies such as Apache Kafka and Apache Spark Streaming provide scalable and distributed frameworks for handling high-volume streaming financial data. These technologies enable low-latency transaction processing, real-time fraud detection, and continuous analytics required for enterprise-grade AML systems.
+
+Recent advancements in intelligent systems have introduced Multi-Agent Artificial Intelligence, where specialized agents collaborate to perform complex tasks autonomously. In AML systems, agent-based architectures can improve investigation efficiency by separating functionalities such as risk analysis, fraud investigation, compliance monitoring, alert prioritization, and explainability. Multi-agent systems provide modularity, scalability, and improved orchestration for handling complex AML workflows in financial institutions.
+
+This paper proposes a real-time AML Intelligence Platform that integrates Big Data streaming, ANN-based fraud detection, Graph Neural Networks, Explainable AI, and Multi-Agent Intelligence for financial crime surveillance. The framework utilizes Apache Kafka and Apache Spark Streaming for real-time transaction ingestion and processing, while a dynamic graph engine continuously constructs transaction relationship networks. A GNN-based intelligence layer analyses graph structures to identify suspicious accounts, fraud rings, and abnormal transactional communities. The system further incorporates explainability mechanisms, automated risk scoring, investigation case generation, and agentic AML orchestration.
+
+An enterprise-grade interactive dashboard is developed using a decoupled client-server architecture: a FastAPI REST API backend exposes AML intelligence endpoints, while a custom single-page application built with vanilla HTML, CSS, and JavaScript provides the user interface. Chart.js is used for analytical charting, vis-network renders interactive transaction graphs, and Lucide supplies icon assets. This architecture enables real-time visualization of transaction graphs, suspicious account tracing, AML risk scores, fraud ring detection, investigation workflows, and compliance insights. The proposed architecture demonstrates scalability, modularity, and real-time analytical capability suitable for modern banking environments and next-generation AML surveillance systems.
+
+\section{Literature Review}
+
+Anti-Money Laundering (AML) systems have traditionally relied on rule-based transaction monitoring approaches to identify suspicious financial activities. Early AML frameworks used predefined thresholds, manually engineered rules, and statistical techniques to detect abnormal transaction patterns. These systems were effective for simple fraud cases; however, they often generated many false positives and struggled to adapt to evolving laundering techniques. Conventional rule-based AML systems lack scalability and are unable to efficiently detect hidden relationships among accounts involved in sophisticated financial crimes.
+
+With the advancement of AI and ML, several studies have explored supervised and unsupervised learning models for financial fraud detection. Algorithms such as Decision Trees, Random Forests, Support Vector Machines, and Artificial Neural Networks (ANN) have been widely applied for classifying suspicious transactions based on historical transaction behaviour. ANN models demonstrated strong performance in identifying nonlinear fraud patterns and improving classification accuracy. However, many traditional ML approaches focus primarily on individual transaction attributes and often ignore the relational nature of financial transaction networks.
+
+Recent research has emphasized graph-based approaches in AML and financial fraud analytics. Financial transactions naturally form interconnected networks where accounts act as nodes and transactions act as edges. Graph analytics techniques have gained popularity for detecting hidden transaction communities, fraud rings, and suspicious account interactions. Graph metrics such as centrality, PageRank, clustering coefficient, and community detection algorithms have been utilized to identify influential or suspicious nodes within transaction networks. These approaches show improved performance in uncovering coordinated laundering activities compared to isolated transaction analysis.
+
+Graph Neural Networks (GNN) have emerged as a powerful deep learning technique for analysing graph-structured financial data. GNN models such as Graph Convolutional Networks (GCN), Graph Attention Networks (GAT), and GraphSAGE can learn node embeddings and capture complex relationships among accounts within financial transaction graphs. GNN-based approaches have achieved promising results in fraud detection, anomaly detection, and suspicious account classification by leveraging both node features and graph connectivity information. Despite their effectiveness, many existing GNN-based AML systems still face challenges related to scalability, real-time inference, and interpretability.
+
+Another important area of research in AML systems is Explainable Artificial Intelligence (XAI). Financial institutions and regulatory authorities require transparency in AI-based fraud detection to ensure trust, accountability, and compliance. Several studies have integrated explainability techniques such as SHAP values, feature importance analysis, and interpretable graph reasoning to explain suspicious transaction predictions. XAI approaches help investigators understand why a transaction or account was flagged, improving decision-making and reducing the limitations of black-box models.
+
+Big Data technologies and multi-agent systems have also been explored for real-time AML surveillance. Apache Kafka and Apache Spark Streaming have been widely adopted for handling high-volume transaction streams and enabling scalable real-time fraud analytics. Agent-based intelligent systems have been proposed for automating tasks such as risk assessment, investigation management, compliance monitoring, and alert prioritization. However, limited research has focused on integrating real-time streaming analytics, ANN models, GNN intelligence, XAI, and Multi-Agent AI into a unified AML platform. The proposed work addresses this gap by developing a comprehensive enterprise-grade real-time AML Intelligence System capable of performing streaming fraud detection, graph-based intelligence, explainable analytics, automated investigation workflows, and interactive financial crime monitoring.
+
+% ================= III. DATASET OVERVIEW =================
+\section{Dataset Overview}
+
+The dataset used in this research consists of financial transaction records designed for Anti-Money Laundering (AML) analysis and fraud detection. It contains transactional interactions between multiple customer accounts, including transaction amounts, account identifiers, timestamps, and suspicious activity indicators. The dataset was utilized to simulate real-world banking transaction behaviour and support the development of the proposed real-time AML Intelligence Platform.
+
+\subsection{Data Composition and Structure}
+
+The dataset is composed of structured financial transaction records where each entry represents a transaction between a sender account and a receiver account. Key attributes include sender ID, receiver ID, transaction amount, transaction timestamp, transaction type, and fraud labels indicating suspicious activity. During graph construction, each customer account was represented as a node and each transaction as an edge, enabling graph-based analysis and Graph Neural Network (GNN) modelling for fraud detection.
+
+\subsection{Behavioral Richness for Real-Time Analytics}
+
+The dataset captures diverse transaction behaviours including normal banking activities, high-value transfers, repeated transaction patterns, and suspicious account interactions. These characteristics enable the proposed system to perform real-time analytics such as anomaly detection, suspicious account classification, fraud ring detection, and AML risk scoring. The transactional relationships within the dataset also support graph-based learning and dynamic monitoring of financial activities using streaming technologies.
+
+\subsection{Preprocessing Steps}
+
+Several preprocessing techniques were applied before model training and streaming analysis. Missing values and duplicate records were removed to improve data quality, while categorical fields were encoded for ML compatibility. Transaction data was normalized and transformed into graph structures for GNN processing. Additional graph-based features such as degree centrality, PageRank score, transaction frequency, and account connectivity metrics were extracted to enhance fraud detection accuracy and AML intelligence analysis.
+
+% ================= IV. METHODOLOGY AND ARCHITECTURE =================
+\section{Methodology and Architecture Overview}
+
+The proposed system follows a real-time intelligent Anti-Money Laundering (AML) architecture integrating Big Data streaming, Artificial Intelligence, Graph Neural Networks (GNN), Explainable AI (XAI), and Multi-Agent Intelligence for fraud detection and financial surveillance. The methodology begins with continuous transaction ingestion using Apache Kafka, followed by distributed stream processing through Apache Spark Streaming. Suspicious transaction detection is initially performed using an Artificial Neural Network (ANN) model, while a dynamic graph engine continuously constructs transaction relationship networks between customer accounts. The generated graph structures are analysed using Graph Neural Networks to identify suspicious nodes, fraud rings, and abnormal transaction communities. The framework further incorporates explainability modules, AML risk scoring, investigation intelligence, automated case generation, and multi-agent orchestration to provide transparent and scalable financial crime monitoring. A web-based interactive dashboard enables real-time visualization of transaction flows, AML alerts, fraud rings, and investigation workflows.
+
+\subsection{System Architecture Overview}
+
+The proposed AML Intelligence Platform is designed as a modular and scalable enterprise architecture composed of multiple interconnected layers. The architecture consists of a real-time data ingestion layer, distributed stream processing layer, ANN-based fraud detection engine, graph analytics engine, GNN intelligence layer, explainability module, agentic orchestration layer, and a decoupled visualization frontend.
+
+Apache Kafka acts as the messaging backbone for transaction streaming, while Apache Spark Streaming performs distributed real-time processing and feature extraction. A dynamic transaction graph is continuously updated using incoming transaction data, enabling graph-based fraud analysis and suspicious account detection.
+
+The visualization layer follows a client-server separation. A FastAPI-based REST API backend exposes endpoints for metrics, graph data, fraud ring results, GNN intelligence outputs, investigation case management, and SHAP-based explainability. The frontend is a custom single-page application built with vanilla HTML, CSS, and JavaScript. Chart.js renders analytical charts such as transaction activity heatmaps and risk score distributions. The vis-network library renders interactive transaction graphs with physics-based node layouts, real-time edge streaming, and click-to-inspect node investigation. Lucide provides icon assets throughout the interface. The application uses a client-side router to navigate between pages including Overview, Live AML Network, Fraud Detection, Fraud Rings, GNN Intelligence, AI Investigation, and Explainable AI.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{architecture.png}
+\caption{Enterprise-grade architecture of the proposed AML Intelligence Platform integrating Big Data streaming, Graph Neural Networks, Explainable AI, and Multi-Agent Intelligence.}
+\label{fig:architecture}
+\end{figure}
+
+\subsection{Real-Time Data Ingestion and Streaming}
+
+The system utilizes Apache Kafka and Apache Spark Streaming to enable high-throughput real-time financial transaction monitoring. Kafka producers continuously stream transaction records into Kafka topics, simulating real-world banking transaction flows. Apache Spark Streaming consumes these transaction streams and performs distributed processing with low latency. During stream processing, transactions are cleaned, transformed, and analysed using machine learning models to identify suspicious activity in real time. The streaming framework enables continuous monitoring of financial transactions, immediate fraud detection, dynamic graph updates, and scalable handling of high-volume banking data.
+
+\subsection{Hybrid Machine Learning Detection Engine}
+
+The proposed framework implements a hybrid fraud detection engine combining Artificial Neural Networks (ANN) and Graph Neural Networks (GNN). The ANN model performs initial suspicious transaction classification using transactional attributes such as transaction amount, account behaviour, and transaction frequency. Simultaneously, a graph engine converts transaction streams into graph structures where customer accounts are represented as nodes and transactions as edges. The Graph Neural Network analyses graph connectivity, node relationships, transaction communities, and graph embeddings to identify suspicious accounts and coordinated fraud rings. Additional graph metrics such as PageRank, degree centrality, and transaction connectivity are used for AML risk scoring and behavioural analysis, improving fraud detection accuracy beyond transaction-level models.
+
+\subsection{Agentic Intelligence and Orchestration}
+
+The proposed system incorporates a Multi-Agent Intelligence framework to automate AML investigation workflows and improve decision-making. Specialized intelligent agents are designed for risk analysis, investigation management, explainability generation, compliance monitoring, and fraud intelligence orchestration. The Risk Agent evaluates AML risk severity based on model predictions and graph behaviour, assigning severity tiers such as CRITICAL, HIGH, MEDIUM, and LOW based on composite scoring that combines the anomaly detection output, graph centrality metrics, and fraud ring membership. The Explanation Agent generates interpretable reasoning for suspicious account classification by extracting the dominant features contributing to the prediction and presenting them as human-readable textual explanations. The Investigation Agent creates automated case summaries and investigation insights, consolidating risk scores, network topology observations, and recommended next steps into structured case dossiers that can be archived for regulatory audits. The Compliance Agent supports regulatory monitoring and audit reporting by cross-referencing flagged accounts against internal watchlists and generating compliance-ready documentation.
+
+An AML Orchestrator coordinates communication between all agents, enabling intelligent collaboration, alert prioritization, automated case management, and real-time fraud investigation within the enterprise AML platform. Each investigation case is persisted as a structured JSON record containing the account identifier, computed risk score, agent-generated explanations, fraud ring associations, and a timestamp, allowing historical case retrieval and trend analysis through the compliance dashboard.
+
+% ================= V. RESULTS AND ANALYSIS =================
+\section{Results and Analysis}
+
+\subsection{Real-Time Transaction Processing}
+
+The proposed AML system successfully processed streaming financial transactions in real time using Apache Kafka and Apache Spark Streaming. The streaming pipeline demonstrated low-latency transaction ingestion and continuous processing, enabling immediate analysis of suspicious activities. The framework effectively handled dynamic transaction flows while maintaining stable system performance during continuous execution. Kafka producers serialized each transaction record as a JSON message and published it to a dedicated AML topic, from which Spark Streaming consumers read micro-batches at configurable intervals. Each micro-batch underwent schema validation, feature extraction, and model inference before the results were written to the in-memory graph engine and the alert store. The architecture supported horizontal scaling by adding Kafka partitions and Spark executor instances, ensuring throughput could grow proportionally with transaction volume without redesigning the pipeline.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{dashboard_overview.png}
+\caption{Dashboard overview page displaying real-time KPI metrics, hourly transaction activity heatmap, and risk score distribution across monitored accounts.}
+\label{fig:dashboardoverview}
+\end{figure}
+
+\subsection{ANN-Based Fraud Detection Performance}
+
+The Artificial Neural Network (ANN) model successfully identified suspicious transactions based on transaction amount, transaction frequency, and behavioural patterns. The model classified abnormal transactions during real-time stream processing and generated suspicious alerts for further graph-based investigation. The ANN layer improved automated fraud detection compared to traditional rule-based approaches.
+
+\subsection{Graph Neural Network Intelligence}
+
+The Graph Neural Network (GNN) model effectively analysed transaction relationship networks and identified suspicious accounts within interconnected transaction graphs. By leveraging graph structures and node connectivity, the model detected abnormal transaction communities and hidden relationships between accounts. The GNN layer improved the identification of coordinated fraud activities and suspicious transaction behaviour. Node embeddings generated by the Graph Convolutional Network captured structural proximity and behavioural similarity between accounts, enabling clustering of accounts with comparable risk profiles. Each account was assigned an embedding-based risk score, a cluster identifier, and a fraud probability, which were jointly used to classify accounts as SUSPICIOUS or NORMAL.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{live_network.png}
+\caption{Live AML network page showing the interactive transaction graph with physics-based node layout, where orange nodes indicate suspicious accounts and green nodes represent normal accounts, streamed via Kafka and Spark.}
+\label{fig:livenetwork}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{gnn_intelligence.png}
+\caption{GNN Intelligence page displaying per-account embedding risk scores, cluster assignments, fraud probabilities, and classification status generated by the Graph Convolutional Network model.}
+\label{fig:gnnintelligence}
+\end{figure}
+
+\subsection{Fraud Ring Detection and Risk Analysis}
+
+The graph analytics engine successfully detected suspicious transaction communities and fraud rings using graph connectivity analysis. AML risk scores were dynamically calculated using transaction behaviour, node degree, PageRank, and graph influence metrics. High-risk accounts and coordinated suspicious groups were effectively identified for further investigation and monitoring. Each detected fraud ring was characterized by a laundering pattern type such as round-tripping, structuring, or shell network activity, along with the member accounts involved and the total transacted amount across the ring. Rings were assigned severity labels ranging from CRITICAL to HIGH based on the aggregate transaction volume and the number of interconnected suspicious accounts.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{fraud_rings.png}
+\caption{Fraud ring detection page showing identified criminal network clusters with risk severity levels, laundering patterns such as round-tripping and structuring, member accounts, and total transacted amounts.}
+\label{fig:fraudrings}
+\end{figure}
+
+\subsection{Explainable AI and Multi-Agent Intelligence}
+
+The Explainable AI (XAI) module generated interpretable explanations for suspicious account predictions by analysing transaction characteristics and graph-based indicators. SHAP (SHapley Additive exPlanations) values quantified the contribution of individual features such as degree centrality and PageRank to the Isolation Forest anomaly score, enabling investigators to see which network characteristics drove each alert. The Multi-Agent Intelligence framework coordinated risk assessment, investigation analysis, compliance monitoring, and alert prioritization, improving system transparency and automating investigation workflows.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{ai_investigation.png}
+\caption{AI Investigation Center showing the multi-agent orchestration output for a selected account, including the circular risk score gauge, and responses from the Risk Analysis, Explanation, Investigation, and Compliance agents.}
+\label{fig:aiinvestigation}
+\end{figure}
+
+\subsection{Interactive Dashboard and System Visualization}
+
+The web-based dashboard successfully provided real-time visualization of transaction graphs, suspicious accounts, AML alerts, fraud rings, and investigation workflows. The frontend is a custom single-page application served by a FastAPI REST backend. Chart.js renders analytical charts including hourly transaction activity heatmaps and risk score distributions. The vis-network library renders an interactive, physics-based transaction graph where nodes represent accounts colour-coded by risk level, edges represent transactions with animated streaming particles, and clicking a node surfaces its risk score, connection count, and suspicion status in a detail panel. When vis-network is unavailable, a custom high-fidelity Canvas rendering engine provides an equivalent interactive graph with floating node physics, spring-tension edge simulation, and neon particle animations. The dashboard uses a client-side router to navigate across seven pages: Overview, Live AML Network, Fraud Detection, Fraud Rings, GNN Intelligence, AI Investigation Center, and Explainable AI. The AI Investigation page coordinates all four agents (Risk, Explanation, Investigation, and Compliance) and presents their outputs alongside a circular SVG risk gauge for the selected account. Interactive graph tracing enabled investigators to analyse account relationships and suspicious transaction paths efficiently.
+
+% ================= VI. CONCLUSION =================
+\clearpage
+\section{Conclusion}
+
+This paper presented a real-time Anti-Money Laundering (AML) Intelligence Platform integrating Big Data streaming, Artificial Neural Networks (ANN), Graph Neural Networks (GNN), Explainable Artificial Intelligence (XAI), and Multi-Agent Intelligence for financial fraud detection and surveillance. The proposed framework addressed the limitations of traditional rule-based AML systems by enabling intelligent, scalable, and real-time monitoring of financial transactions and suspicious account activities.
+
+The system utilized Apache Kafka and Apache Spark Streaming for continuous transaction ingestion and distributed real-time processing. The ANN-based detection layer performed suspicious transaction classification, while the graph analytics engine dynamically constructed transaction relationship networks. The Graph Neural Network model identified suspicious accounts, fraud rings, and abnormal transaction communities by analysing graph connectivity and behavioural patterns within financial transaction networks.
+
+To improve transparency and regulatory compliance, the framework incorporated Explainable AI techniques capable of generating interpretable reasoning for suspicious account predictions. SHAP-based feature importance analysis provided per-account explanations grounded in graph metrics such as degree centrality and PageRank influence. The Multi-Agent Intelligence layer further enhanced the system by automating risk assessment, compliance monitoring, investigation workflows, and alert prioritization. Automated AML case generation and fraud investigation support improved the efficiency of financial crime analysis and monitoring processes.
+
+The visualization layer was implemented as a decoupled client-server architecture. A FastAPI REST API backend served AML intelligence data to a custom single-page web application built with vanilla HTML, CSS, and JavaScript. Chart.js provided analytical charting, vis-network rendered interactive physics-based transaction graphs with real-time streaming updates, and a custom Canvas-based fallback engine ensured cross-environment compatibility. This architecture offered greater control over the user interface, eliminated framework dependencies, and enabled seamless integration with the backend API for real-time data polling and investigation workflows.
+
+\begin{thebibliography}{50}
+
+\bibitem{1}
+I. Goodfellow, Y. Bengio, and A. Courville, \textit{Deep Learning}. Cambridge, MA, USA: MIT Press, 2016.
+
+\bibitem{2}
+T. N. Kipf and M. Welling, ``Semi-Supervised Classification with Graph Convolutional Networks,'' in \textit{Proc. Int. Conf. Learning Representations (ICLR)}, 2017.
+
+\bibitem{3}
+W. L. Hamilton, R. Ying, and J. Leskovec, ``Inductive Representation Learning on Large Graphs,'' in \textit{Advances in Neural Information Processing Systems}, 2017, pp. 1024--1034.
+
+\bibitem{4}
+P. Velickovic et al., ``Graph Attention Networks,'' in \textit{Proc. Int. Conf. Learning Representations (ICLR)}, 2018.
+
+\bibitem{5}
+J. Brownlee, \textit{Deep Learning for Computer Vision}. Machine Learning Mastery, 2019.
+
+\bibitem{6}
+S. Russell and P. Norvig, \textit{Artificial Intelligence: A Modern Approach}, 4th~ed. Pearson, 2021.
+
+\bibitem{7}
+A. G\'{e}ron, \textit{Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow}, 3rd~ed. O'Reilly Media, 2022.
+
+\bibitem{8}
+M. Zaharia et al., ``Apache Spark: A Unified Engine for Big Data Processing,'' \textit{Communications of the ACM}, vol.~59, no.~11, pp.~56--65, 2016.
+
+\bibitem{9}
+N. Garg, \textit{Apache Kafka}. Packt Publishing, 2015.
+
+\bibitem{10}
+D. Borthakur, ``Apache Hadoop Goes Real-Time at Facebook,'' in \textit{Proc. ACM SIGMOD Int. Conf. Management of Data}, 2011.
+
+\bibitem{11}
+F. Chollet, \textit{Deep Learning with Python}, 2nd~ed. Manning Publications, 2021.
+
+\bibitem{12}
+T. Mikolov et al., ``Distributed Representations of Words and Phrases and their Compositionality,'' in \textit{Advances in Neural Information Processing Systems}, 2013.
+
+\bibitem{13}
+D. Easley and J. Kleinberg, \textit{Networks, Crowds, and Markets: Reasoning About a Highly Connected World}. Cambridge University Press, 2010.
+
+\bibitem{14}
+M. Newman, \textit{Networks: An Introduction}. Oxford University Press, 2010.
+
+\bibitem{15}
+L. Page et al., ``The PageRank Citation Ranking: Bringing Order to the Web,'' Stanford InfoLab, Tech. Rep., 1999.
+
+\bibitem{16}
+S. Wasserman and K. Faust, \textit{Social Network Analysis: Methods and Applications}. Cambridge University Press, 1994.
+
+\bibitem{17}
+C. C. Aggarwal, \textit{Data Mining: The Textbook}. Springer, 2015.
+
+\bibitem{18}
+C. C. Aggarwal, \textit{Neural Networks and Deep Learning}. Springer, 2018.
+
+\bibitem{19}
+T. Chen and C. Guestrin, ``XGBoost: A Scalable Tree Boosting System,'' in \textit{Proc. ACM SIGKDD Int. Conf. Knowledge Discovery and Data Mining}, 2016.
+
+\bibitem{20}
+S. Lundberg and S. Lee, ``A Unified Approach to Interpreting Model Predictions,'' in \textit{Advances in Neural Information Processing Systems}, 2017.
+
+\bibitem{21}
+A. Adadi and M. Berrada, ``Peeking Inside the Black-Box: A Survey on Explainable Artificial Intelligence,'' \textit{IEEE Access}, vol.~6, pp.~52138--52160, 2018.
+
+\bibitem{22}
+D. Lowe, ``Object Recognition from Local Scale-Invariant Features,'' in \textit{Proc. IEEE Int. Conf. Computer Vision}, 1999.
+
+\bibitem{23}
+E. Alpaydin, \textit{Introduction to Machine Learning}, 4th~ed. MIT Press, 2020.
+
+\bibitem{24}
+K. Murphy, \textit{Machine Learning: A Probabilistic Perspective}. MIT Press, 2012.
+
+\bibitem{25}
+I. Foster and C. Kesselman, \textit{The Grid: Blueprint for a Future Computing Infrastructure}. Morgan Kaufmann, 2003.
+
+\bibitem{26}
+A. Ng, ``Machine Learning and AI via Brain Simulations,'' \textit{Communications of the ACM}, vol.~55, no.~12, pp.~74--83, 2012.
+
+\bibitem{27}
+J. Han, M. Kamber, and J. Pei, \textit{Data Mining: Concepts and Techniques}, 3rd~ed. Morgan Kaufmann, 2011.
+
+\bibitem{28}
+S. Haykin, \textit{Neural Networks and Learning Machines}, 3rd~ed. Pearson, 2009.
+
+\bibitem{29}
+T. White, \textit{Hadoop: The Definitive Guide}, 4th~ed. O'Reilly Media, 2015.
+
+\bibitem{30}
+M. Wooldridge, \textit{An Introduction to MultiAgent Systems}, 2nd~ed. Wiley, 2009.
+
+\bibitem{31}
+F. T. Liu, K. M. Ting, and Z.-H. Zhou, ``Isolation Forest,'' in \textit{Proc. 8th IEEE Int. Conf. Data Mining (ICDM)}, 2008, pp. 413--422.
+
+\bibitem{32}
+M. T. Ribeiro, S. Singh, and C. Guestrin, ``Why Should I Trust You? Explaining the Predictions of Any Classifier,'' in \textit{Proc. ACM SIGKDD Int. Conf. Knowledge Discovery and Data Mining}, 2016, pp. 1135--1144.
+
+\bibitem{33}
+M. Weber, G. Domeniconi, J. Chen, D. K. I. Weidele, C. Bellei, T. Robinson, and C. E. Leiserson, ``Anti-Money Laundering in Bitcoin: Experimenting with Graph Convolutional Networks for Financial Forensics,'' in \textit{KDD Workshop on Anomaly Detection in Finance}, 2019.
+
+\bibitem{34}
+Z. Liu, C. Chen, X. Yang, J. Zhou, X. Li, and L. Song, ``Heterogeneous Graph Neural Networks for Malicious Account Detection,'' in \textit{Proc. 27th ACM Int. Conf. Information and Knowledge Management (CIKM)}, 2018, pp. 2077--2085.
+
+\bibitem{35}
+K. Xu, W. Hu, J. Leskovec, and S. Jegelka, ``How Powerful are Graph Neural Networks?,'' in \textit{Proc. Int. Conf. Learning Representations (ICLR)}, 2019.
+
+\bibitem{36}
+B. Perozzi, R. Al-Rfou, and S. Skiena, ``DeepWalk: Online Learning of Social Representations,'' in \textit{Proc. ACM SIGKDD Int. Conf. Knowledge Discovery and Data Mining}, 2014, pp. 701--710.
+
+\bibitem{37}
+A. Grover and J. Leskovec, ``node2vec: Scalable Feature Learning for Networks,'' in \textit{Proc. ACM SIGKDD Int. Conf. Knowledge Discovery and Data Mining}, 2016, pp. 855--864.
+
+\bibitem{38}
+V. D. Blondel, J.-L. Guillaume, R. Lambiotte, and E. Lefebvre, ``Fast Unfolding of Communities in Large Networks,'' \textit{J. Statistical Mechanics: Theory and Experiment}, vol. 2008, no. 10, P10008, 2008.
+
+\bibitem{39}
+D. Cheng, F. Wang, Y. Zhang, and L. Shi, ``Graph Neural Network for Fraud Detection via Spatial-Temporal Attention,'' \textit{IEEE Trans. Knowledge and Data Engineering}, vol.~34, no.~8, pp. 3800--3813, 2022.
+
+\bibitem{40}
+J. J. Xu and H. Chen, ``Criminal Network Analysis and Visualization,'' \textit{Communications of the ACM}, vol.~48, no.~6, pp. 100--107, 2005.
+
+\bibitem{41}
+Financial Action Task Force (FATF), ``Money Laundering Using New Technologies,'' FATF, Paris, France, Tech. Rep., 2010.
+
+\bibitem{42}
+M. Goldstein and S. Uchida, ``A Comparative Evaluation of Unsupervised Anomaly Detection Algorithms for Multivariate Data,'' \textit{PLoS ONE}, vol.~11, no.~4, e0152173, 2016.
+
+\bibitem{43}
+P. Carminati, R. Caron, R. Maggi, I. Epifani, and S. Zanero, ``BankSealer: A Decision Support System for Online Banking Fraud Analysis and Investigation,'' \textit{Computers \& Security}, vol.~53, pp. 175--186, 2015.
+
+\bibitem{44}
+E. Lopez-Rojas, A. Elmir, and S. Axelsson, ``PaySim: A Financial Mobile Money Simulator for Fraud Detection,'' in \textit{Proc. 28th European Modeling and Simulation Symposium (EMSS)}, 2016, pp. 249--255.
+
+\bibitem{45}
+S. Kurshan, H. Shen, and H. Yu, ``Financial Crime and Fraud Detection Using Graph Computing: Application Considerations and Outlook,'' in \textit{Proc. Int. Conf. Transdisciplinary AI (TransAI)}, IEEE, 2020, pp. 125--130.
+
+\bibitem{46}
+M. Fey and J. E. Lenssen, ``Fast Graph Representation Learning with PyTorch Geometric,'' in \textit{ICLR Workshop on Representation Learning on Graphs and Manifolds}, 2019.
+
+\bibitem{47}
+S. Ram\'{i}rez et al., \textit{FastAPI: Modern, Fast Web Framework for Building APIs with Python}. Available: https://fastapi.tiangolo.com, 2019.
+
+\bibitem{48}
+Y. Liu, X. Ao, Z. Qin, J. Chi, J. Feng, H. Yang, and Q. He, ``Pick and Choose: A GNN-based Imbalanced Learning Approach for Fraud Detection,'' in \textit{Proc. The Web Conference (WWW)}, 2021, pp. 3168--3177.
+
+\bibitem{49}
+D. Bahdanau, K. Cho, and Y. Bengio, ``Neural Machine Translation by Jointly Learning to Align and Translate,'' in \textit{Proc. Int. Conf. Learning Representations (ICLR)}, 2015.
+
+\bibitem{50}
+Z. Wu, S. Pan, F. Chen, G. Long, C. Zhang, and P. S. Yu, ``A Comprehensive Survey on Graph Neural Networks,'' \textit{IEEE Trans. Neural Networks and Learning Systems}, vol.~32, no.~1, pp. 4--24, 2021.
+
+\end{thebibliography}
+
+\end{document}

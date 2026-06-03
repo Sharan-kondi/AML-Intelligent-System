@@ -1,0 +1,105 @@
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+*.manifest
+*.spec
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# ========================
+# IDE / Editor
+# ========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# ========================
+# OS Generated
+# ========================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ========================
+# Environment Variables
+# ========================
+.env
+.env.local
+.env.*.local
+config/settings.env
+
+# ========================
+# Logs
+# ========================
+logs/
+*.log
+
+# ========================
+# Data (large datasets)
+# ========================
+data/raw/
+data/processed/
+data/cases/
+data/streaming/
+data/synthetic/*.parquet
+data/synthetic/*.csv
+
+# ========================
+# Model Artifacts
+# ========================
+*.pt
+*.pth
+*.onnx
+*.pkl
+checkpoints/
+
+# ========================
+# Generated Visualizations
+# ========================
+graph/graph.html
+graph/live_graph.html
+
+# ========================
+# Jupyter Notebooks
+# ========================
+.ipynb_checkpoints/
+
+# ========================
+# Docker
+# ========================
+*.pid
+
+# ========================
+# Node
+# ========================
+node_modules/
+npm-debug.log*
+
+# ========================
+# Misc
+# ========================
+.cache/
+.pytest_cache/
+.mypy_cache/
+htmlcov/
+.coverage
+coverage.xml
