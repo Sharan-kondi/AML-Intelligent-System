@@ -408,8 +408,4 @@ python -m pytest tests/ --cov=. --cov-report=html
 
 This project includes a LaTeX research paper (`paper.tex`) documenting the methodology, architecture, and experimental results of the AML Intelligent System.
 
----
 
-<p align="center">
-  Built with ❤️ by <a href="https://github.com/Sharan-kondi">Sharan Kondi</a>
-</p>
